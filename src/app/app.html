@@ -1,18 +1,63 @@
 <div class="container">
-  <h1>📚 Dashboard de Tareas Académicas</h1>
+  <h1>📦 Sistema de Inventario</h1>
+  <p class="subtitle">Proyecto profesional con Angular, React y JavaScript</p>
 
-  <div class="card">
-    <h2>📊 Estadística</h2>
-    <p>Realizar análisis descriptivo del dataset.</p>
+  <div class="stats">
+    <div class="stat-card">
+      <h2>15</h2>
+      <p>Productos</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>3</h2>
+      <p>Bajo stock</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>$12,500</h2>
+      <p>Valor total</p>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>💻 Programación</h2>
-    <p>Terminar proyecto Angular + React + JavaScript.</p>
-  </div>
+  <div class="panel">
+    <h2>Inventario principal</h2>
 
-  <div class="card">
-    <h2>🗄️ Base de Datos</h2>
-    <p>Practicar consultas SQL y JOINs.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Stock</th>
+          <th>Precio</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Laptop HP</td>
+          <td>Electrónica</td>
+          <td>8</td>
+          <td>$9,500</td>
+          <td><span class="ok">Disponible</span></td>
+        </tr>
+
+        <tr>
+          <td>Mouse Logitech</td>
+          <td>Accesorios</td>
+          <td>2</td>
+          <td>$350</td>
+          <td><span class="warning">Bajo stock</span></td>
+        </tr>
+
+        <tr>
+          <td>Teclado Mecánico</td>
+          <td>Accesorios</td>
+          <td>12</td>
+          <td>$1,200</td>
+          <td><span class="ok">Disponible</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
