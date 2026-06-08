@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #1f2937;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  transition: transform .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+h2 {
+  margin-top: 0;
+}
