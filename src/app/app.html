@@ -1,63 +1,135 @@
-<div class="container">
+<div class="container" [class.dark]="modoOscuro">
+
   <h1>📦 Sistema de Inventario</h1>
-  <p class="subtitle">Proyecto profesional con Angular, React y JavaScript</p>
 
-  <div class="stats">
-    <div class="stat-card">
-      <h2>15</h2>
-      <p>Productos</p>
-    </div>
+  <button class="btn-modo" (click)="cambiarModo()">
+  {{ modoOscuro ? '☀️ Modo Claro' : '🌙 Modo Oscuro' }}
+</button>
 
-    <div class="stat-card">
-      <h2>3</h2>
-      <p>Bajo stock</p>
-    </div>
+<div class="stats">
 
-    <div class="stat-card">
-      <h2>$12,500</h2>
-      <p>Valor total</p>
-    </div>
+  <div class="card">
+    <h2>{{ productos.length }}</h2>
+   
+    <p>Productos</p>
   </div>
 
-  <div class="panel">
-    <h2>Inventario principal</h2>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Producto</th>
-          <th>Categoría</th>
-          <th>Stock</th>
-          <th>Precio</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>Laptop HP</td>
-          <td>Electrónica</td>
-          <td>8</td>
-          <td>$9,500</td>
-          <td><span class="ok">Disponible</span></td>
-        </tr>
-
-        <tr>
-          <td>Mouse Logitech</td>
-          <td>Accesorios</td>
-          <td>2</td>
-          <td>$350</td>
-          <td><span class="warning">Bajo stock</span></td>
-        </tr>
-
-        <tr>
-          <td>Teclado Mecánico</td>
-          <td>Accesorios</td>
-          <td>12</td>
-          <td>$1,200</td>
-          <td><span class="ok">Disponible</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card">
+    <h2>{{ obtenerStockBajo() }}</h2>
+    <p>Bajo stock</p>
   </div>
+
+  <div class="card">
+    <h2>${{ formatearPrecio(obtenerValorTotal()) }}</h2>
+    <p>Valor total</p>
+  </div>
+
+</div>
+  <div class="formulario">
+    <input
+      type="text"
+      placeholder="Nombre del producto"
+      [(ngModel)]="nuevoProducto"
+    >
+
+    <input
+      type="text"
+      placeholder="Categoría"
+      [(ngModel)]="nuevaCategoria"
+    >
+
+    <input
+      type="number"
+      placeholder="Stock"
+      [(ngModel)]="nuevoStock"
+    >
+
+    <input
+      type="number"
+      placeholder="Precio"
+      [(ngModel)]="nuevoPrecio"
+    >
+
+    <button *ngIf="!editando" (click)="agregarProducto()">
+  Agregar Producto
+</button>
+
+       <button class="btn-exportar" (click)="exportarCSV()">
+  Exportar CSV
+</button>
+
+<button *ngIf="editando" (click)="actualizarProducto()">
+  Actualizar Producto
+</button>
+  </div>
+
+<input
+  type="text"
+  placeholder="🔍 Buscar producto..."
+  [(ngModel)]="busqueda"
+  class="buscador"
+/>
+   <div class="grafica-container">
+  <h2>Productos por categoría</h2>
+  <canvas id="graficaCategorias"></canvas>
+</div>
+
+<h3>Valor por categoría</h3>
+
+<div class="pie-wrapper">
+  <canvas id="graficaValorCategoria"></canvas>
+</div>
+
+  <h2>Inventario Principal</h2>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Categoría</th>
+        <th>Stock</th>
+        <th>Precio</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let producto of productos; let i = index">
+
+  <td>{{ producto.nombre }}</td>
+  <td>{{ producto.categoria }}</td>
+  <td>{{ producto.stock }}</td>
+  <td>${{ formatearPrecio(producto.precio) }}</td>
+
+  <td>
+    <span
+    class="estado"
+    [class.disponible]="producto.stock > 5"
+    [class.bajo]="producto.stock > 0 && producto.stock <= 5"
+    [class.agotado]="producto.stock === 0"
+  >
+    {{ obtenerEstado(producto.stock) }}
+    </span>
+  </td>
+
+  <td>
+    <div class="acciones">
+
+      <button class="btn-editar" (click)="editarProducto(i)">
+  Editar
+</button>
+
+      <button class="btn-eliminar" (click)="eliminarProducto(producto.id)">
+  Eliminar
+</button>
+
+    </div>
+  </td>
+
+</tr>
+    </tbody>
+  </table>
+
 </div>
