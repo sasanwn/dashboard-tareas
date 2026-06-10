@@ -22,7 +22,10 @@ interface Producto {
 
 
 export class App implements OnInit {
-
+  logueado = false;
+  usuario = '';
+  password = '';
+  mensajeLogin = '';
   nuevoProducto = '';
   nuevaCategoria = '';
   nuevoStock = 0;
@@ -37,15 +40,71 @@ export class App implements OnInit {
 
 
 ngOnInit() {
+
   const modoGuardado = localStorage.getItem('modoOscuro');
+  const sesion = localStorage.getItem('logueado');
+
+  if (sesion === 'true') {
+    this.logueado = true;
+
+    const usuarioGuardado = localStorage.getItem('usuario');
+
+    if (usuarioGuardado) {
+      this.usuario = usuarioGuardado;
+    }
+  }
 
   if (modoGuardado) {
     this.modoOscuro = JSON.parse(modoGuardado);
   }
 
-  this.cargarProductosAPI();
+  if (this.logueado) {
+    this.cargarProductosAPI();
+  }
+
 }
 
+iniciarSesion() {
+  const datosLogin = {
+    usuario: this.usuario,
+    password: this.password
+  };
+
+  this.http.post<any>('http://localhost:3000/login', datosLogin)
+    .subscribe({
+      next: (respuesta) => {
+
+        if (respuesta.acceso) {
+
+          this.logueado = true;
+          this.mensajeLogin = '';
+
+          localStorage.setItem('logueado', 'true');
+          localStorage.setItem('usuario', this.usuario);
+
+          setTimeout(() => {
+            this.cargarProductosAPI();
+          }, 0);
+
+        }
+
+      },
+
+      error: () => {
+        this.mensajeLogin = 'Usuario o contraseña incorrectos';
+      }
+    });
+}
+
+cerrarSesion() {
+  this.logueado = false;
+
+  localStorage.removeItem('logueado');
+  localStorage.removeItem('usuario');
+
+  this.usuario = '';
+  this.password = '';
+}
 
 crearGrafica() {
   const categorias = this.productos.map(p => p.categoria);
@@ -118,41 +177,55 @@ constructor(
   private cdr: ChangeDetectorRef
 ) {}
 
-  agregarProducto() {
+agregarProducto() {
 
-    if (
-      !this.nuevoProducto ||
-      !this.nuevaCategoria ||
-      this.nuevoStock < 0 ||
-      this.nuevoPrecio <= 0
-    ) {
-      return;
-    }
-
-   const producto = {
-  nombre: this.nuevoProducto,
-  categoria: this.nuevaCategoria,
-  stock: this.nuevoStock,
-  precio: this.nuevoPrecio
-};
-
-this.http.post<any>('http://localhost:3000/productos', producto)
-  .subscribe(() => {
-    this.cargarProductosAPI();
-
-    this.nuevoProducto = '';
-    this.nuevaCategoria = '';
-    this.nuevoStock = 0;
-    this.nuevoPrecio = 0;
-  });
-
-    this.crearGrafica();
-    this.crearGraficaValor();
-    this.nuevoProducto = '';
-    this.nuevaCategoria = '';
-    this.nuevoStock = 0;
-    this.nuevoPrecio = 0;
+  if (
+    !this.nuevoProducto ||
+    !this.nuevaCategoria ||
+    this.nuevoStock < 0 ||
+    this.nuevoPrecio <= 0
+  ) {
+    return;
   }
+
+  const producto = {
+    nombre: this.nuevoProducto,
+    categoria: this.nuevaCategoria,
+    stock: this.nuevoStock,
+    precio: this.nuevoPrecio
+  };
+  
+  if (this.editando) {
+      
+    const productoEditado = this.productos[this.indiceEditando];
+
+    this.http.put<any>(
+      `http://localhost:3000/productos/${productoEditado.id}`,
+      producto
+    ).subscribe(() => {
+      this.cargarProductosAPI();
+
+      this.nuevoProducto = '';
+      this.nuevaCategoria = '';
+      this.nuevoStock = 0;
+      this.nuevoPrecio = 0;
+      this.editando = false;
+      this.indiceEditando = -1;
+    });
+
+    return;
+  }
+
+  this.http.post<any>('http://localhost:3000/productos', producto)
+    .subscribe(() => {
+      this.cargarProductosAPI();
+
+      this.nuevoProducto = '';
+      this.nuevaCategoria = '';
+      this.nuevoStock = 0;
+      this.nuevoPrecio = 0;
+    });
+}
 
 obtenerValorTotal() {
   return this.productos.reduce(
@@ -218,6 +291,8 @@ cargarProductosAPI() {
 
 
 editarProducto(index: number) {
+ 
+
   const producto = this.productos[index];
 
   this.nuevoProducto = producto.nombre;
@@ -228,6 +303,7 @@ editarProducto(index: number) {
   this.editando = true;
   this.indiceEditando = index;
 }
+
 
 actualizarProducto() {
   if (this.indiceEditando === -1) return;

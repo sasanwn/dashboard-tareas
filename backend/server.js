@@ -56,9 +56,25 @@ app.post('/productos', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Servidor ejecutándose en http://localhost:3000');
+app.put('/productos/:id', (req, res) => {
+  const id = req.params.id;
+  const { nombre, categoria, stock, precio } = req.body;
+
+  const sql = `
+    UPDATE productos
+    SET nombre = ?, categoria = ?, stock = ?, precio = ?
+    WHERE id = ?
+  `;
+
+  db.query(sql, [nombre, categoria, stock, precio, id], (err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    res.json({ mensaje: 'Producto actualizado' });
+  });
 });
+
 
 app.delete('/productos/:id', (req, res) => {
   const id = req.params.id;
@@ -74,4 +90,26 @@ app.delete('/productos/:id', (req, res) => {
       res.json({ mensaje: 'Producto eliminado' });
     }
   );
+});
+
+app.post('/login', (req, res) => {
+  const { usuario, password } = req.body;
+
+  const sql = 'SELECT * FROM usuarios WHERE usuario = ? AND password = ?';
+
+  db.query(sql, [usuario, password], (err, result) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    if (result.length > 0) {
+      res.json({ acceso: true, mensaje: 'Login correcto' });
+    } else {
+      res.status(401).json({ acceso: false, mensaje: 'Usuario o contraseña incorrectos' });
+    }
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Servidor ejecutándose en http://localhost:3000');
 });

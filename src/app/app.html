@@ -1,6 +1,43 @@
-<div class="container" [class.dark]="modoOscuro">
+<div class="login-container" *ngIf="!logueado">
+  <div class="login-card">
 
-  <h1>📦 Sistema de Inventario</h1>
+    <h1>📦 Sistema de Inventario</h1>
+<p>Acceso administrativo</p>
+
+    <input
+      type="text"
+      placeholder="Usuario"
+      [(ngModel)]="usuario"
+    >
+
+    <input
+      type="password"
+      placeholder="Contraseña"
+      [(ngModel)]="password"
+    >
+
+    <button (click)="iniciarSesion()">
+      Entrar
+    </button>
+
+    <p class="error" *ngIf="mensajeLogin">
+      {{ mensajeLogin }}
+    </p>
+
+  </div>
+</div>
+
+<div class="container" [class.dark]="modoOscuro" *ngIf="logueado">
+
+  <h1>Sistema de Inventario</h1>
+
+<div class="usuario-barra">
+  <span>👤 Bienvenido, {{ usuario }}</span>
+
+  <button class="btn-logout" (click)="cerrarSesion()">
+    Cerrar sesión
+  </button>
+</div>
 
   <button class="btn-modo" (click)="cambiarModo()">
   {{ modoOscuro ? '☀️ Modo Claro' : '🌙 Modo Oscuro' }}
@@ -50,17 +87,18 @@
       [(ngModel)]="nuevoPrecio"
     >
 
-    <button *ngIf="!editando" (click)="agregarProducto()">
-  Agregar Producto
-</button>
-
        <button class="btn-exportar" (click)="exportarCSV()">
   Exportar CSV
 </button>
 
-<button *ngIf="editando" (click)="actualizarProducto()">
+<button *ngIf="!editando" (click)="agregarProducto()">
+  Agregar Producto
+</button>
+
+<button *ngIf="editando" (click)="agregarProducto()">
   Actualizar Producto
 </button>
+
   </div>
 
 <input
@@ -117,7 +155,7 @@
   <td>
     <div class="acciones">
 
-      <button class="btn-editar" (click)="editarProducto(i)">
+  <button class="btn-editar" (click)="editarProducto(i)">
   Editar
 </button>
 
