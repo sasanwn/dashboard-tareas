@@ -1,59 +1,194 @@
-# DashboardTareas
+# 📦 Sistema de Inventario Web
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.0.
+Sistema de gestión de inventario desarrollado con Angular, Node.js, Express y MySQL.
 
-## Development server
+Este proyecto permite administrar productos mediante operaciones CRUD (Crear, Leer, Actualizar y Eliminar), visualizar estadísticas mediante gráficas dinámicas y gestionar inventario de forma sencilla desde una interfaz moderna.
 
-To start a local development server, run:
+---
+
+# 🚀 Tecnologías Utilizadas
+
+- Angular
+- TypeScript
+- Node.js
+- Express.js
+- MySQL
+- Chart.js
+- HTML5
+- CSS3
+- Git
+- GitHub
+
+---
+
+# ✨ Funcionalidades
+
+✅ Inicio de sesión conectado a MySQL
+
+✅ Gestión de usuarios
+
+✅ Agregar productos
+
+✅ Editar productos
+
+✅ Eliminar productos
+
+✅ Búsqueda dinámica de productos
+
+✅ Control de stock bajo
+
+✅ Identificación de productos agotados
+
+✅ Dashboard con estadísticas
+
+✅ Gráfica de productos por categoría
+
+✅ Gráfica de valor por categoría
+
+✅ Exportación de inventario a CSV
+
+✅ Modo oscuro / claro
+
+✅ Persistencia de sesión mediante LocalStorage
+
+✅ Diseño responsive para dispositivos móviles
+
+---
+
+# 📊 Indicadores del Dashboard
+
+El sistema calcula automáticamente:
+
+- Total de productos registrados
+- Productos con bajo stock
+- Valor total del inventario
+- Distribución de productos por categoría
+- Valor monetario por categoría
+- Estado de disponibilidad de cada producto
+
+---
+
+# 🔐 Usuario de Prueba
+
+Usuario:
+
+```txt
+admin
+```
+
+Contraseña:
+
+```txt
+9999
+```
+
+---
+
+# 🗄️ Base de Datos
+
+Base de datos utilizada:
+
+```sql
+inventario_db
+```
+
+Tablas principales:
+
+```sql
+usuarios
+productos
+```
+
+---
+
+# ⚙️ Instalación
+
+## 1. Clonar repositorio
+
+```bash
+git clone https://github.com/sasawn/dashboard-tareas.git
+```
+
+## 2. Instalar dependencias del Frontend
+
+```bash
+npm install
+```
+
+## 3. Ejecutar Angular
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Aplicación disponible en:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```txt
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
+
+## 4. Ejecutar Backend
+
+Entrar a la carpeta backend:
 
 ```bash
-ng generate --help
+cd backend
 ```
 
-## Building
-
-To build the project run:
+Instalar dependencias:
 
 ```bash
-ng build
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Ejecutar servidor:
 
 ```bash
-ng test
+node server.js
 ```
 
-## Running end-to-end tests
+Servidor disponible en:
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```txt
+http://localhost:3000
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+# 📈 Características Técnicas
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Arquitectura Frontend + Backend
+- API REST con Express
+- Comunicación HTTP entre Angular y Node.js
+- Base de datos relacional MySQL
+- Persistencia de datos
+- Persistencia de sesión
+- Componentes reutilizables
+- Visualización de datos con Chart.js
+
+---
+
+# 🎓 Objetivo Académico
+
+Este proyecto fue desarrollado con fines educativos para reforzar conocimientos en:
+
+- Desarrollo Web Full Stack
+- Bases de Datos
+- Angular
+- Node.js
+- Programación Orientada a Objetos
+- APIs REST
+- Visualización de Datos
+- Control de Inventarios
+
+---
+
+# 👨‍💻 Autor
+
+**Sasa UwU**
+
+Estudiante de Desarrollo de Software.
+
+Proyecto realizado como práctica académica para demostrar conocimientos en desarrollo web, bases de datos y programación Full Stack.
