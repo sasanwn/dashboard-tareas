@@ -187,7 +187,7 @@ Este proyecto fue desarrollado con fines educativos para reforzar conocimientos 
 
 # 👨‍💻 Autor
 
-**Sasa UwU**
+**Sasa**
 **JHALIL GIBRAN DIAZ BALANZAR**
 
 Estudiante de Ingenieria Informatica.
