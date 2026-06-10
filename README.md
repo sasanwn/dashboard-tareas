@@ -189,6 +189,6 @@ Este proyecto fue desarrollado con fines educativos para reforzar conocimientos 
 
 **Sasa UwU**
 
-Estudiante de Desarrollo de Software.
+Estudiante de Ingenieria Informatica.
 
-Proyecto realizado como práctica académica para demostrar conocimientos en desarrollo web, bases de datos y programación Full Stack.
+Proyecto escolar utilizado para poner en práctica conocimientos de desarrollo web Full Stack, incorporando de manera incremental nuevas funcionalidades, mejoras visuales y optimización de procesos. Actualmente continúa en desarrollo y sirve como base para futuras mejoras y nuevas características.
